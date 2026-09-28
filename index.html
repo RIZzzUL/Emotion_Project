@@ -24,24 +24,34 @@
             height: 40px;
             animation: spin 1s linear infinite;
         }
-        .dark-bg {
-            background: #0e1729;
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
         }
-        .dark-input {
-            background: #1e293b; color: #fff;
+        .animate-blob {
+            animation: blob 7s infinite;
         }
-        .dark-border {
-            border-color: #334155;
+        .animation-delay-2000 {
+            animation-delay: 2s;
         }
+        .dark-bg { background: transparent; }
+        .dark-input { background: transparent; }
+        .dark-border { border-color: transparent; }
     </style>
 </head>
 
-<body class="bg-[#0e1729] min-h-screen flex items-center justify-center p-4 text-gray-100">
+<body class="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] min-h-screen flex items-center justify-center p-4 text-gray-100 font-sans selection:bg-cyan-500/30">
 
-    <div class="bg-[#15213b] w-full max-w-2xl shadow-2xl rounded-2xl p-8 transition-all">
+    <!-- Ambient background glows -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-2000 pointer-events-none"></div>
 
-        <h1 class="text-3xl font-bold text-center text-blue-300">Speech Emotion Recognition</h1>
-        <p class="text-center text-gray-400 mt-2 mb-8">
+    <div class="relative bg-white/5 backdrop-blur-2xl border border-white/10 w-full max-w-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] rounded-3xl p-10 transition-all z-10">
+
+        <h1 class="text-4xl md:text-5xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 drop-shadow-sm tracking-tight mb-3">Speech Emotion Recognition</h1>
+        <p class="text-center text-blue-200/70 font-medium mt-2 mb-10 text-lg">
             Upload or record audio to detect emotion.
         </p>
 
@@ -49,19 +59,19 @@
             <label for="audio-upload" class="block text-lg font-semibold text-gray-300 mb-3">
                 1. Input Audio
             </label>
-            <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col md:flex-row gap-5">
                 <!-- File Upload -->
                 <label for="audio-upload"
-                    class="flex-1 flex flex-col items-center justify-center h-32 px-4 py-6 bg-[#1e293b] dark-input rounded-lg border-2 dark-border border-dashed cursor-pointer hover:bg-[#233657] transition">
+                    class="group flex-1 flex flex-col items-center justify-center h-36 px-4 py-6 bg-white/5 rounded-2xl border-2 border-white/10 border-dashed cursor-pointer hover:bg-white/10 hover:border-cyan-400/50 transition-all duration-300 shadow-inner">
                     <div class="flex flex-col items-center justify-center">
-                        <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor"
+                        <svg class="w-12 h-12 text-blue-400/70 group-hover:scale-110 group-hover:text-cyan-400 transition-all duration-300" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 15l-3-3m0 0l3-3m-3 3h12">
                             </path>
                         </svg>
-                        <p class="mt-2 text-sm text-gray-400">
-                            <span class="font-semibold">Click to upload</span> or drag & drop
+                        <p class="mt-3 text-sm text-gray-300">
+                            <span class="font-semibold text-cyan-200">Click to upload</span> or drag & drop
                         </p>
                         <p class="text-xs text-gray-500">WAV, MP3, or M4A</p>
                     </div>
@@ -69,14 +79,14 @@
                 </label>
                 <!-- Microphone Recorder -->
                 <button id="record-btn"
-                    class="flex-1 bg-blue-800 text-white font-semibold py-3 rounded-lg border-2 dark-border border-blue-500 hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center gap-2">
-                    <svg id="mic-icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                    class="group flex-1 bg-gradient-to-br from-blue-600/80 to-blue-800/80 text-white font-semibold py-3 rounded-2xl border border-white/10 shadow-[0_4px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex flex-col items-center justify-center gap-2">
+                    <svg id="mic-icon" class="w-10 h-10 text-white/90 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 18v2m0 0h3m-3 0a7 7 0 01-7-7V10a5 5 0 0110 0v3a7 7 0 01-7 7z" />
-                        <circle cx="12" cy="11" r="4" stroke="white" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="11" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
                     </svg>
-                    <span id="record-label">Record Audio</span>
+                    <span id="record-label" class="text-sm tracking-wide">Record Audio</span>
                     <span id="record-timer" class="text-xs text-gray-400"></span>
                 </button>
             </div>
@@ -94,28 +104,28 @@
 
         <div class="mb-8">
             <button id="analyze-btn"
-                class="w-full bg-blue-700 text-white text-lg font-bold py-3 px-6 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all transform hover:scale-102 disabled:opacity-50 disabled:cursor-not-allowed">
-                2. Analyze Emotion
+                class="relative w-full overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xl font-bold py-4 px-6 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] focus:outline-none focus:ring-4 focus:ring-cyan-500/50 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                <span class="relative z-10 tracking-wide">2. Analyze Emotion</span>
             </button>
         </div>
 
         <div>
-            <h2 class="text-lg font-semibold text-gray-300 mb-3">
+            <h2 class="text-xl font-semibold text-gray-200 mb-4 tracking-tight">
                 3. Analysis & Results
             </h2>
-            <div id="status-area" class="bg-[#101828] text-white rounded-lg p-6 min-h-[250px] overflow-hidden">
-                <div id="initial-state" class="flex flex-col items-center justify-center h-full text-gray-400">
-                    <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor"
+            <div id="status-area" class="bg-black/20 backdrop-blur-md border border-white/10 text-white rounded-3xl p-8 min-h-[280px] flex flex-col justify-center items-center overflow-hidden shadow-inner relative">
+                <div id="initial-state" class="flex flex-col items-center justify-center h-full text-blue-200/60">
+                    <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M9 19V6l11 0"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M11 19V6l11 0"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M5 19V6l11 0"></path>
                     </svg>
-                    <p class="font-medium">Waiting for audio input...</p>
-                    <p class="text-sm">Upload or record, then analyze.</p>
+                    <p class="font-medium text-lg tracking-wide">Waiting for audio input...</p>
+                    <p class="text-sm mt-1">Upload or record, then analyze.</p>
                 </div>
                 <div id="processing-state" class="hidden">
                     <div class="flex items-center mb-4">
@@ -124,12 +134,15 @@
                     </div>
                     <ul id="processing-steps" class="space-y-2 font-mono text-sm text-gray-300"></ul>
                 </div>
-                <div id="result-state" class="hidden">
+                <div id="result-state" class="hidden w-full h-full flex flex-col items-center justify-center animate-fade-in">
                     <div class="text-center">
-                        <p class="text-gray-400 font-medium mb-4">Analysis Complete!</p>
-                        <div id="result-emoji" class="text-8xl mb-4"></div>
-                        <h3 class="text-4xl font-bold" id="result-text"></h3>
-                        <p class="text-lg text-blue-300 mt-2" id="result-confidence"></p>
+                        <p class="text-cyan-300/80 font-semibold tracking-widest uppercase text-sm mb-4">Analysis Complete</p>
+                        <div id="result-emoji" class="text-9xl mb-6 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] transform hover:scale-110 transition-transform duration-500"></div>
+                        <h3 class="text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 to-cyan-400 drop-shadow-md tracking-tight capitalize" id="result-text"></h3>
+                        <div class="mt-6 inline-block bg-white/10 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm">
+                            <p class="text-lg font-medium text-blue-100" id="result-confidence"></p>
+                        </div>
+                        <p class="text-md text-blue-200 mt-4 italic" id="result-transcript"></p>
                     </div>
                 </div>
             </div>
@@ -167,8 +180,8 @@
         const playBtn = document.getElementById('play-btn');
         const audioDuration = document.getElementById('audio-duration');
 
-        const API_URL = "http://127.0.0.1:5000/predict";
-        const EMOTION_EMOJIS = {"Happy":"😀","Sad":"😢","Angry":"😡","Neutral":"😐","Fear":"😨","Disgust":"🤢","Surprise":"😮"};
+        const API_URL = "/predict";
+        const EMOTION_EMOJIS = {"Happy":"😀","Sad":"😢","Angry":"😡","Neutral":"😐","Fear":"😨","Disgust":"🤢","Surprise":"😮", "Excited":"🤩"};
 
         let recordedBlob = null;
         let isRecording = false;
@@ -241,7 +254,9 @@
                     mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
                     mediaRecorder.onstop = () => {
                         isRecording = false;
-                        recordedBlob = new Blob(chunks, { type: 'audio/wav' });
+                        // Use the correct MIME type based on what the browser actually recorded
+                        const mimeType = mediaRecorder.mimeType || 'audio/webm';
+                        recordedBlob = new Blob(chunks, { type: mimeType });
                         fileNameDisplay.textContent = "Recorded audio ready";
                         recordLabel.textContent = "Record Audio";
                         micIcon.classList.remove('text-red-400');
@@ -340,14 +355,26 @@
                 resultState.style.display = 'block';
                 const emotion = data.emotion;
                 const confidence = (data.confidence * 100).toFixed(1);
+                const transcript = data.transcript;
                 resultEmoji.textContent = EMOTION_EMOJIS[emotion] || '🤔';
                 resultText.textContent = emotion;
                 resultConfidence.textContent = `(Confidence: ${confidence}%)`;
+                
+                const resultTranscript = document.getElementById('result-transcript');
+                if (transcript) {
+                    resultTranscript.textContent = `You said: "${transcript}"`;
+                } else {
+                    resultTranscript.textContent = '';
+                }
+
+                // Play a short beep to indicate completion (speaker)
+                const feedbackAudio = document.getElementById('feedback-audio');
+                if (feedbackAudio) feedbackAudio.play();
             } catch (error) {
                 console.error("Analysis failed:", error);
                 if (error.message.includes('Failed to fetch')) {
                     showMessage("Error: Could not connect to Python backend.");
-                    processingSteps.innerHTML += '<li class="text-red-400">[X] Failed to connect to server at http://127.0.0.1:5000</li>';
+                    processingSteps.innerHTML += '<li class="text-red-400">[X] Failed to connect to Python backend.</li>';
                     processingSteps.innerHTML += '<li class="text-yellow-300">Is the `app.py` server running?</li>';
                 } else {
                     showMessage(`Error: ${error.message}`);
@@ -360,5 +387,6 @@
         // Dark mode on initial load
         document.body.classList.add('dark-bg');
     </script>
+    <audio id="feedback-audio" src="data:audio/wav;base64,//uQxAAABhAAAAABAAEAgD///8AAACdAQAAAAAAACcAAAABAAAAAQAAQAAAAAAAABJZGF0YQAAAAA=" preload="auto"></audio>
 </body>
 </html>

@@ -1,0 +1,14 @@
+.venv-app/
+venv/
+venv_broken/
+venv 2/
+__pycache__/
+*.pyc
+temp_*.npy
+temp_inference_*.wav
+temp_*.wav
+predictions.db
+.git.corrupted-backup/
+.DS_Store
+Augmented_Dataset/
+.ipynb_checkpoints/

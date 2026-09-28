@@ -1,0 +1,10 @@
+numpy
+librosa
+soundfile
+scipy
+flask
+flask-cors
+tensorflow
+speechrecognition
+pandas
+scikit-learn
